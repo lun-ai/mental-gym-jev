@@ -1,12 +1,21 @@
-# mental-gym
+# mental-gym-jev
 
-> **Template placeholder.** This README describes the template, not a gym.
-> When the gym session starts, replace it with the actual topic: what is being
-> built, the reference implementation, and the topic's own notes. The
-> `AI-mental-gym-checklist` skill does this when it generates `CHECKLIST.md`.
+A [mental gym](https://github.com/lun-ai/skills) for building a Jev-style
+"System One" model from scratch: a transformer that reads one shared state plus
+several questions in a single forward pass and returns calibrated probability
+distributions over typed answers (choice, boolean, numeric) instead of
+generating tokens. Jev is TypeSafe's first System One model
+([launch post](https://typesafe.ai/blog/introducing-system-one-models-and-jev)).
 
-A [mental gym](https://github.com/lun-ai/skills) for building TOPIC from scratch.
-Reference implementation: TBD.
+Reference implementation: none is public. The target design follows Archer
+Hume's black-box reconstruction,
+[Jev's architecture, unmasked](https://archerhume.com/posts/jevs-architecture-unmasked),
+with the pieces grounded in prior art: Hydragen for shared-prefix attention,
+FIRST for single-token listwise scoring, Guo et al. 2017 for calibration, and
+Gneiting & Raftery 2007 for proper scoring rules. The backbone is a small
+pretrained causal LM loaded from Hugging Face; everything that makes Jev
+different from an LLM (branch attention, readout heads, calibrated training)
+is built here.
 
 Progress lives in [`CHECKLIST.md`](CHECKLIST.md). Blog post: TBD.
 
@@ -54,7 +63,7 @@ AGENTS.md        agent instructions: install skills, generate checklist, coach
 CLAUDE.md        points Claude Code at AGENTS.md (GEMINI.md does the same)
 .agents/skills/  the gym skills, installed by the agent, usable by any agent
 CHECKLIST.md     phases, items and depth checkpoints
-src/TOPIC/       the code you write
+src/jev/         the code you write
 tests/           unit tests per checklist item
 data/            datasets (gitignored)
 outputs/         generated artifacts (gitignored)
@@ -68,13 +77,3 @@ docs/            diagrams (.excalidraw sources and rendered .png)
 uv sync
 uv run pytest
 ```
-
-## Starting a new gym from this template
-
-1. Create a repo from this template on GitHub ("Use this template").
-2. Rename `src/topic/` to `src/<topic>/` and set `name` and `packages` in `pyproject.toml`.
-3. Open the repo in your coding agent and say "Set up the gym". The agent
-   installs the skills into `.agents/skills/`, generates `CHECKLIST.md`, and
-   rewrites this README for the actual topic. Commit the installed skills.
-4. Fill in the reference implementation link if the skill could not infer it.
-5. Delete this section.
