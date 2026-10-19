@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+
+# Environments
+.venv/
+.env
+
+# Gym artifacts: keep code, drop everything heavy or regenerable
+data/*
+!data/.gitkeep
+outputs/*
+!outputs/.gitkeep
+checkpoints/
+out/
+wandb/
+figs/
+
+# Claude Code local state
+.claude/worktrees/
+.claude/settings.local.json
